@@ -7,10 +7,10 @@ import org.eclipse.xtend.lib.annotations.Accessors
 import org.uqbar.geodds.Point
 import com.fasterxml.jackson.annotation.JsonIgnore
 import java.util.ArrayList
-import org.uqbar.commons.model.annotations.Observable
+import org.uqbar.commons.model.annotations.TransactionalAndObservable
 
 @Accessors
-@Observable
+@TransactionalAndObservable
 class SuperIndividuo extends Entidad implements Defensores {
 	@JsonIgnore String nombreYApellido
 	String alias

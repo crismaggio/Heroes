@@ -3,12 +3,15 @@ package edu.unsam.algo2.individuo
 import java.util.List
 import org.eclipse.xtend.lib.annotations.Accessors
 import com.fasterxml.jackson.annotation.JsonIgnore
+import java.util.ArrayList
+import org.uqbar.commons.model.annotations.TransactionalAndObservable
 
 @Accessors
+@TransactionalAndObservable
 class Equipo extends Entidad implements Defensores {
 	var String nombre
 	@JsonIgnore SuperIndividuo lider
-	@JsonIgnore List<SuperIndividuo> integrantes = newArrayList
+	@JsonIgnore List<SuperIndividuo> integrantes = new ArrayList
 
 	def double poderGrupal() {
 		(lider.efectividadSuperIndividuo + adicionalPorPastaDeLider()) * porcentajeAdicionalPorAmistad()

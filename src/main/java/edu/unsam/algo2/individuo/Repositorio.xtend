@@ -3,7 +3,7 @@ package edu.unsam.algo2.individuo
 import java.util.ArrayList
 import java.util.List
 import org.eclipse.xtend.lib.annotations.Accessors
-import org.uqbar.commons.model.annotations.Observable
+import org.uqbar.commons.model.annotations.TransactionalAndObservable
 
 @Accessors
 abstract class Entidad {
@@ -20,7 +20,7 @@ abstract class Entidad {
 }
 
 @Accessors
-@Observable
+@TransactionalAndObservable
 abstract class Repositorio<T extends Entidad> {
 	List<T> elementos = new ArrayList<T>
 	var int proximoId = 1
@@ -74,10 +74,13 @@ abstract class Repositorio<T extends Entidad> {
 		]
 	}
 	
-	// Agregados TP Algo 3	
+	// INICIO Agregados TP Algo 3	
 	def cantidadElementos(){
 		elementos.size()
 	}
+	
+	
+	// FIN Agregados TP Algo 3
 }
 
 class RepoIndividuo extends Repositorio<SuperIndividuo> {
@@ -96,15 +99,25 @@ class RepoIndividuo extends Repositorio<SuperIndividuo> {
 		} else {
 			chancesDeCombatirAmenazaMayoresde60(unaAmenaza).minBy[costoDeCombatirUnaAmenaza(unaAmenaza)]
 		}
-	}
-	
-	def superIndividuosBalanceados(){
-		this.elementos.sortBy([supI | Math.abs(supI.poderDeAtaque - supI.poderDeDefensa)])
-	}
+	}	
 
 	def chancesDeCombatirAmenazaMayoresde60(Amenaza unaAmenaza) {
 		elementos.filter[defensor|defensor.chancesDeContrarrestarAmenaza(unaAmenaza) > 60]
 	}
+	
+	// INICIO Agregados TP Algo 3	
+	def superIndividuosBalanceados(){
+		this.elementos.sortBy([supI | Math.abs(supI.poderDeAtaque - supI.poderDeDefensa)])
+	}
+	
+	def double porcentajeIndividuosSenior(){
+		return ( this.elementos.filter[supI|supI.esSenior].size().doubleValue / this.cantidadElementos.doubleValue) * 100
+	}
+	
+	def superIndividuoMasEfectivo(){
+		this.elementos.maxBy[efectividadSuperIndividuo].nombreYApellido
+	}
+	// FIN Agregados TP Algo 3
 
 }
 
@@ -135,6 +148,15 @@ class RepoEquipo extends Repositorio<Equipo> {
 		elementos.filter[defensor|defensor.chancesDeContrarrestarAmenaza(unaAmenaza) > 60]
 	}
 
+	// INICIO Agregados TP Algo 3	
+	def porcentajeEquiposLlenos(){
+		return ( this.elementos.filter[equipo|equipo.cantidadDeIntegrantesConLider == 10].size().doubleValue / this.cantidadElementos.doubleValue) * 100
+	}
+	
+	def equipoMasEfectivo(){
+		this.elementos.maxBy[poderGrupal].nombre
+	}
+	// FIN Agregados TP Algo 3
 }
 
 class RepoAmenaza extends Repositorio<Amenaza> {
