@@ -1,0 +1,10 @@
+language: java
+jdk:
+  - oraclejdk8
+
+notifications:
+  email:
+    - maggioranocristian@gmail.com
+    - salamidadh@gmail.com
+    - cuellar.miguel.77@gmail.com
+    - mosjim@gmail.com
