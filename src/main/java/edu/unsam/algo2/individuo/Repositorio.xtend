@@ -114,7 +114,7 @@ class RepoIndividuo extends Repositorio<SuperIndividuo> {
 		return ( this.elementos.filter[supI|supI.esSenior].size().doubleValue / this.cantidadElementos.doubleValue) * 100
 	}
 	
-	def superIndividuoMasEfectivo(){
+	def  superIndividuoMasEfectivo(){
 		this.elementos.maxBy[efectividadSuperIndividuo].nombreYApellido
 	}
 	// FIN Agregados TP Algo 3
@@ -153,9 +153,13 @@ class RepoEquipo extends Repositorio<Equipo> {
 		return ( this.elementos.filter[equipo|equipo.cantidadDeIntegrantesConLider == 10].size().doubleValue / this.cantidadElementos.doubleValue) * 100
 	}
 	
-	def equipoMasEfectivo(){
+	def  equipoMasEfectivo(){
 		this.elementos.maxBy[poderGrupal].nombre
 	}
+		def   equipoMasPoderoso(){
+		this.elementos.sortBy[poderGrupal]
+	}
+	
 	// FIN Agregados TP Algo 3
 }
 
